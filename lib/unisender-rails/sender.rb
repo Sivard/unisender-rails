@@ -16,15 +16,14 @@ module UnisenderRails
   	end
 
   	def deliver!(mail)
-  	  puts @settings[:api_key]
       client = UniSender::Client.new(@settings[:api_key])
-      first_list_id = client.get_lists['result'].first['id']
-      puts client.sendEmail :subject => mail.subject,
+      list_id = @settings[:list_id]
+      client.sendEmail :subject => mail.subject,
                        :body => mail.body,
                        :sender_email => mail.from,
                        :email => mail.to,
                        :sender_name => mail.to.split('@').first,
-                       :list_id => first_list_id
+                       :list_id => list_id
   	end
 
   end

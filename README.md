@@ -18,19 +18,18 @@ Or install it yourself as:
 
 ## Usage
 
-Configure you ation_mailer in config/environments/{rails_evironment}.rb
-
-    config.action_mailer.delivery_method = :unisender
-    config.action_mailer.unisender_settings = {:api_key => 'api_key'}
-
 Make a mailer:
-    rails g mailer MyMailer
 
-Define methods in your mailer:
+    rails g unisender_rails:mailer my_mailer
+    or 
+    rails generate unisender_rails:mailer my_mailer
+
+Make defaults in your mailer:
 
     class MyMailer < ActionMailer::Base
       default :from => "your@email.com"
-
+      self.unisender_settings = {:api_key => 'your api here',
+                                 :list_id => your users group list id }
       def sign_up
   	    mail(:to => 'your@client.com',
              :subject => 'Subject')
