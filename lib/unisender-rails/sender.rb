@@ -23,7 +23,8 @@ module UnisenderRails
                        :sender_email => mail.from,
                        :email => mail.to,
                        :sender_name => mail.to.split('@').first,
-                       :list_id => list_id
+                       :list_id => list_id,
+                       :lang => @settings[:lang] || 'ru'
   	end
 
   end
