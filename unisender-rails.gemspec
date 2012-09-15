@@ -6,10 +6,10 @@ require 'unisender-rails/version'
 Gem::Specification.new do |gem|
   gem.name          = "unisender-rails"
   gem.version       = Unisender::Rails::VERSION
-  gem.authors       = ["freeze"]
+  gem.authors       = ["Sergey Gribovski (Aforex)"]
   gem.email         = ["sgribovskiy@aforex.ru"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{It is a wrapper for uni_sender gem}
+  gem.summary       = %q{It is a wrapper for uni_sender gem to use it like rails ActionMailer}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
