@@ -27,8 +27,9 @@ module UnisenderRails
                                 :body => mail.body,
                                 :sender_email => mail.from,
                                 :email => mail.to,
-                                :sender_name => mail.from.split('@').first,
-                                :list_id => list_id
+                                :sender_name => @settings[:sender_name] || mail.to.split('@').first,
+                                :list_id => list_id,
+                                :lang => @settings[:lang] || 'ru'
       Rails.logger.info "Unisender mailer result: #{result}" if @settings[:debug] == true
   	end
 

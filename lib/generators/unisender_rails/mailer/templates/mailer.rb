@@ -12,6 +12,7 @@ class <%= class_name %> < ActionMailer::Base
   #   en.<%= file_path.gsub("/",".") %>.<%= action %>.subject
   #
   def <%= action %>
+    self.unisender_settings[:lang] = 'ru'
     @greeting = "Hi"
 
     mail <%= key_value :to, '"to@example.org"' %>
