@@ -18,7 +18,7 @@ module UnisenderRails
   	def deliver!(mail)
       client = UniSender::Client.new(@settings[:api_key])
       list_id = @settings[:list_id]
-      client.subscribe :fields => {:email => @mail.to},
+      client.subscribe :fields => {:email => mail.to},
                        :list_ids => list_id,
                        :double_optin => 3 
       client.activateContacts :contact_type => 'email',
@@ -27,7 +27,7 @@ module UnisenderRails
                                 :body => mail.body,
                                 :sender_email => mail.from,
                                 :email => mail.to,
-                                :sender_name => @settings[:sender_name] || mail.to.split('@').first,
+                                :sender_name => @settings[:sender_name],
                                 :list_id => list_id,
                                 :lang => @settings[:lang] || 'ru'
       Rails.logger.info "Unisender mailer result: #{result}" if @settings[:debug] == true
