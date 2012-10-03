@@ -18,12 +18,18 @@ module UnisenderRails
   	def deliver!(mail)
       client = UniSender::Client.new(@settings[:api_key])
       list_id = @settings[:list_id]
-      client.sendEmail :subject => mail.subject,
-                       :body => mail.body,
-                       :sender_email => mail.from,
-                       :email => mail.to,
-                       :sender_name => mail.to.split('@').first,
-                       :list_id => list_id
+      client.subscribe :fields => {:email => @mail.to},
+                       :list_ids => list_id,
+                       :double_optin => 3 
+      client.activateContacts :contact_type => 'email',
+                              :contacts => mail.to
+      result = client.sendEmail :subject => mail.subject,
+                                :body => mail.body,
+                                :sender_email => mail.from,
+                                :email => mail.to,
+                                :sender_name => mail.from.split('@').first,
+                                :list_id => list_id
+      Rails.logger.info "Unisender mailer result: #{result}" if @settings[:debug] == true
   	end
 
   end
