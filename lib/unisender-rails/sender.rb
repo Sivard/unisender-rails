@@ -16,19 +16,20 @@ module UnisenderRails
   	end
 
   	def deliver!(mail)
+      mail_to = [*(mail.to)]
       client = UniSender::Client.new(@settings[:api_key])
       list_id = @settings[:list_id]
-      result = client.subscribe :fields => {:email => mail.to.join(',')},
+      result = client.subscribe :fields => {:email => mail_to.join(',')},
                                 :list_ids => list_id,
                                 :double_optin => 3 
       log_event(result)
       result = client.activateContacts :contact_type => 'email',
-                                       :contacts => mail.to.join(',')
+                                       :contacts => mail_to.join(',')
       log_event(result)                                       
       result = client.sendEmail :subject => mail.subject,
                                 :body => mail.body,
                                 :sender_email => mail.from,
-                                :email => mail.to,
+                                :email => mail_to,
                                 :sender_name => @settings[:sender_name] || mail.from.split('@').first,
                                 :list_id => list_id,
                                 :lang => @settings[:lang] || 'ru'
