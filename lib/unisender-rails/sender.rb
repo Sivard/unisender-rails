@@ -2,7 +2,7 @@ require 'uni_sender'
 
 module UnisenderRails
   class Sender
-  	
+
 
   	def initialize(args)
   	  @settings = {:api_key => nil}
@@ -19,20 +19,18 @@ module UnisenderRails
       mail_to = [*(mail.to)]
       client = UniSender::Client.new(@settings[:api_key])
       list_id = @settings[:list_id]
-      result = client.subscribe :fields => {:email => mail_to.join(',')},
-                                :list_ids => list_id,
-                                :double_optin => 3 
+      result = client.subscribe fields: { email: mail_to.join(',') },
+                                list_ids: list_id,
+                                double_optin: 3
       log_event(result)
-      result = client.activateContacts :contact_type => 'email',
-                                       :contacts => mail_to.join(',')
-      log_event(result)                                       
-      result = client.sendEmail :subject => mail.subject,
-                                :body => mail.body,
-                                :sender_email => mail.from,
-                                :email => mail_to,
-                                :sender_name => @settings[:sender_name] || mail.from.split('@').first,
-                                :list_id => list_id,
-                                :lang => @settings[:lang] || 'ru'
+
+      result = client.sendEmail subject: mail.subject,
+                                body: mail.body,
+                                sender_email: mail.from,
+                                email: mail_to,
+                                sender_name: @settings[:sender_name] || mail.from.split('@').first,
+                                list_id: list_id,
+                                lang: @settings[:lang] || 'ru'
       log_event(result)
   	end
 
