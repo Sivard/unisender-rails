@@ -1,4 +1,4 @@
-require 'uni_sender'
+require 'unisender-rails/client'
 
 module UnisenderRails
   class Sender
@@ -17,7 +17,7 @@ module UnisenderRails
 
   	def deliver!(mail)
       mail_to = [*(mail.to)]
-      client = UniSender::Client.new(@settings[:api_key])
+      client = Client.new(@settings[:api_key])
       list_id = @settings[:list_id]
       result = client.subscribe fields: { email: mail_to.join(',') },
                                 list_ids: list_id,

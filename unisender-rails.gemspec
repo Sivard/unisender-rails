@@ -17,5 +17,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_runtime_dependency "uni_sender", ">=0"
+  gem.add_dependency 'rest-client', '~> 2.1.0'
+  gem.add_dependency 'json',        '~> 2.7.2'
+  gem.add_development_dependency 'rspec'
 end
