@@ -1,9 +1,9 @@
 <% module_namespacing do -%>
-class <%= class_name %> < ActionMailer::Base
-  default <%= key_value :from, '"from@example.com"' %>
+class <%= class_name %> < ApplicationMailer
+  default <%= "from: 'from@example.com'" %>
   self.delivery_method = :unisender  
-  self.unisender_settings = {:api_key => 'your api key',
-                             :list_id => 'users group list id'}
+  self.unisender_settings = {api_key: 'your api key',
+                             list_id: 'users group list id'}
 <% actions.each do |action| -%>
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -15,7 +15,7 @@ class <%= class_name %> < ActionMailer::Base
     self.unisender_settings[:lang] = 'ru'
     @greeting = "Hi"
 
-    mail <%= key_value :to, '"to@example.org"' %>
+    mail <%= "to: 'to@example.org'" %>
   end
 <% end -%>
 end
